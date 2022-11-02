@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if user.is_superuser %}
+        <h1>All Data</h1>
+        <ul>
+            {% for user_data in user_data_list %}
+                <li>
+                    {% if not user_data.username|first in "[(" or not user_data.username|last in "])" %}
+                        <b>Username:</b> {{ user_data.username }}
+                    {% else %}
+                        <b>Invalid username!</b>
+                    {% endif %}
+                    <br>
+                    {% if not user_data.first_name|first in "[(" or not user_data.first_name|last in "])" %}
+                        <b>Name:</b> {{ user_data.first_name }}
+                    {% endif %}
+                    <br>
+                    {% if not user_data.last_name|first in "[(" or not user_data.last_name|last in "])" %}
+                        <b>Surname:</b> {{ user_data.last_name }}
+                    {% endif %}
+                    <br>
+                    <br>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <b>Username:</b> {{ user.username }}
+        <br>
+        <b>Name:</b> {{ user.first_name }}
+        <br>
+        <b>Surname:</b> {{ user.last_name }}
+    {% endif %}
+{% endblock %}
